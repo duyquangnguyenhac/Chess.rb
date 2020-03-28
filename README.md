@@ -5,5 +5,7 @@
 		- To make a move, the user can input command such as 'knight to C3'.
 		- The player can give commands such as 'help', 'resign', 'save', 'quit' at any time.
 		- Players has the ability to perform castling or en-passant taking moves.
-#Purpose
+
+##Purpose
+
 	- The purpose of this project was to practice my ability to perform Object-Oriented Programming as well as familiarized myself with the Ruby language. 
