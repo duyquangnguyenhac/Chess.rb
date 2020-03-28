@@ -1,18 +1,18 @@
 class Game
-  attr_reader :board, :white_player, :black_player, :current_player
+  attr_reader :board, :white_player, :black_player, :cur_player
 
   def initialize(board:, white_player:, black_player:)
     @board = board
     @white_player = white_player
     @black_player = black_player
-    @current_player = white_player
+    @cur_player = white_player
   end
 
   def play
     loop do
       turn
-      switch_players
-      check_board
+      switch_cur_player
+      board_check
     end    
   end
 
@@ -39,11 +39,11 @@ class Game
     end
   end
 
-  def check_board
+  def board_check
     if checkmate?(team)
       puts "Checkmate!"
       display_board
-      switch_players
+      switch_cur_player
       victory
     elsif stalemate?(team)
       puts "Stalemate!"
@@ -53,8 +53,8 @@ class Game
     puts "Check!" if check?(team)
   end
 
-  def switch_players
-    @current_player = (current_player == black_player ? white_player : black_player)
+  def switch_cur_player
+    @cur_player = (cur_player == black_player ? white_player : black_player)
   end
 
   def display_board
@@ -71,26 +71,26 @@ class Game
   end
   
   def team
-    current_player.team
+    cur_player.team
   end
 
   def player_name
-    current_player.name
+    cur_player.name
   end
 
   def get_player_response
-    current_player.play(board)
+    cur_player.play(board)
   end
 
   def help
     puts <<~INSTRUCTIONS
       To move one of your pieces, please type the name of the piece followed by the name 
       of the square you want to move it to, for example 'knight to c3'. 
-      If you want to move a pawn, you can also just type the name of a square, like 'e4'.
+      If you want to move a pawn, you can also just type the name of the square you want to move it to, like 'e4'.
       
       You can also enter any of the following at any time:
-      - enter 'resign' to resign from the game
-      - enter 'save' to save the game
+      - enter 'resign' to resign
+      - enter 'save' to save the game you're playing
       - enter 'quit' to stop playing
       - enter 'help' to see these instructions again.
     INSTRUCTIONS
@@ -106,7 +106,7 @@ class Game
   end
 
   def quit
-    puts "Make sure you've saved your game before quitting if you want to come back to it later!"
+    puts "Make sure to save your game if you want to come back to it later!"
     puts "Are you sure you want to exit the game (y/n)?"
     input = gets.chomp.downcase
     loop do
@@ -126,7 +126,7 @@ class Game
     input = gets.chomp.downcase
     loop do
       if input == 'y'
-        switch_players
+        switch_cur_player
         victory
       elsif input =='n'
         break

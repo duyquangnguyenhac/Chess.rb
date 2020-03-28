@@ -19,7 +19,7 @@ module InputParser
         choice[:contents] = move_parse(input)
         return choice
       else
-        puts "Invalid input, please try again or type 'help' if you don't know what to do:"
+        puts "Invalid input, please try again or type 'help' for further instructions:"
         input = gets.chomp.downcase
       end
     end
@@ -27,7 +27,7 @@ module InputParser
 
   def choose_piece(piece_type, coordinates)
     pos = reverse_translate(coordinates)
-    puts "Do you want to move the #{piece_type} that is currently at #{pos[0]}#{pos[1]}? Please answer (y/n)"
+    puts "Do you want to move the #{piece_type} that's currently at #{pos[0]}#{pos[1]}? Please answer (y/n)"
     reply = gets.chomp.downcase
     until reply == 'y' || reply == 'n'
       puts "Please type 'y' or 'n' to indicate whether you want to move the piece above."

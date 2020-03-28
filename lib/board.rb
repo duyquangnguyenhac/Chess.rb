@@ -30,16 +30,16 @@ class Board
     self
   end
 
-  def move_ok?(move)
+  def checkmove(move)
     # make sure all squares in the middle of the path are empty
     if move.path.size > 2
       return false unless path_empty?(move.path)
     end
     # check other rules
     if move.name.nil?
-      return false unless normal_move_allowed?(move)
+      return false unless normal_move? (move)
     else
-      return false unless special_move_allowed?(move)
+      return false unless special_move?(move)
     end
     true
   end
@@ -125,7 +125,7 @@ class Board
 
   # methods related to move checking and making moves
 
-  def normal_move_allowed?(move)
+  def normal_move?(move)
     end_pos = move.path[-1]
     team = move.piece.colour
     if empty?(end_pos)
@@ -141,7 +141,7 @@ class Board
     end
   end
 
-  def special_move_allowed?(move)
+  def special_move? (move)
     end_pos = move.path[-1]
     team = move.piece.colour
     case move.name
@@ -238,7 +238,7 @@ class Board
       empty(corner)
       moved_rook = set_moved(rook)
       update_square(end_pos_rook, moved_rook)
-      add_message("You move both your king and your rook in a castling move.")
+      add_message("Your rook and king successfully castled.")
     end
   end
 

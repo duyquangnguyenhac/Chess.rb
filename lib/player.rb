@@ -35,7 +35,7 @@ class Player
     puts "Please enter #{team.capitalize}'s player name:"
     name = gets.chomp.capitalize
     while name == ""
-      puts "Please enter a name:"
+      puts "Enter a name:"
       name = gets.chomp.capitalize
     end
     name
